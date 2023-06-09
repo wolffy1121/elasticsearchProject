@@ -3,6 +3,7 @@ package com.scala.es
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.serializer.SerializeConfig
 import com.scala.bean.Movie
+import com.scala.utils.MyElasticSerachUtils
 import org.elasticsearch.action.bulk.BulkRequest
 import org.elasticsearch.action.index.IndexRequest
 import org.elasticsearch.client.{RequestOptions, RestHighLevelClient}
@@ -13,7 +14,7 @@ import org.elasticsearch.common.xcontent.XContentType
  */
 object ElasticSearch04_Insert {
 
-    private val esClient: RestHighLevelClient = ElasticSearch01_ENV.esClient
+    private val esClient: RestHighLevelClient = MyElasticSerachUtils.esClient
 
     def main(args: Array[String]): Unit = {
 
