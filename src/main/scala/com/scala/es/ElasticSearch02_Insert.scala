@@ -1,8 +1,8 @@
-package com.wolffy.es
+package com.scala.es
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.serializer.SerializeConfig
-import com.wolffy.bean.Movie
+import com.scala.bean.Movie
 import org.elasticsearch.action.index.IndexRequest
 import org.elasticsearch.client.{RequestOptions, RestHighLevelClient}
 import org.elasticsearch.common.xcontent.XContentType

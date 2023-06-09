@@ -1,5 +1,4 @@
-package com.wolffy.es
-
+package com.scala.es
 
 import org.apache.http.HttpHost
 import org.elasticsearch.client.{RestClient, RestClientBuilder, RestHighLevelClient}

@@ -1,7 +1,7 @@
-package com.wolffy.es;
+package com.java.es;
 
 import com.alibaba.fastjson.JSON;
-import com.wolffy.es.bean.Movie;
+import com.java.bean.Movie;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;

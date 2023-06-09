@@ -1,4 +1,4 @@
-package com.wolffy.bean
+package com.scala.bean
 
 case class Movie(
 

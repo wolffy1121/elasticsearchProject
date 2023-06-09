@@ -1,50 +1,46 @@
-package com.wolffy.es
+package com.scala.es
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.serializer.SerializeConfig
-import com.wolffy.bean.Movie
+import com.scala.bean.Movie
+import ElasticSearch02_Insert.saveIdempotent
 import org.elasticsearch.action.bulk.BulkRequest
 import org.elasticsearch.action.index.IndexRequest
 import org.elasticsearch.client.{RequestOptions, RestHighLevelClient}
 import org.elasticsearch.common.xcontent.XContentType
 
 /**
- * 批量数据幂等写入
+ * 批量数据写入
  */
-object ElasticSearch04_Insert {
-
+object ElasticSearch03_Insert {
     private val esClient: RestHighLevelClient = ElasticSearch01_ENV.esClient
 
     def main(args: Array[String]): Unit = {
 
         val movies = List(
-            ("104" , Movie("104","红海行动")),
-            ("105", Movie("105","湄公河行动"))
+            Movie("102", "速度与激情"),
+            Movie("103", "八佰")
         )
-        bulkSaveIdempotent(movies,"movie_test20210103")
+        bulkSave(movies, "movie_test20210103")
 
         esClient.close()
     }
 
     /**
-     * 批量数据幂等写入
-     * 通过指定id实现幂等
+     * 批量数据写入
      */
-    def bulkSaveIdempotent(sourceList: List[(String, AnyRef)], indexName: String): Unit = {
-
+    def bulkSave(sourceList: List[AnyRef], indexName: String): Unit = {
         // BulkRequest实际上就是由多个单条IndexRequest的组合
         val bulkRequest = new BulkRequest()
 
-        for ((docId, sourceObj) <- sourceList) {
+        for (source <- sourceList) {
             val indexRequest = new IndexRequest()
             indexRequest.index(indexName)
-            val movieJsonStr: String = JSON.toJSONString(sourceObj, new SerializeConfig(true))
+            val movieJsonStr: String = JSON.toJSONString(source, new SerializeConfig(true))
             indexRequest.source(movieJsonStr, XContentType.JSON)
-            indexRequest.id(docId)
             bulkRequest.add(indexRequest)
         }
 
         esClient.bulk(bulkRequest, RequestOptions.DEFAULT)
     }
-
 }

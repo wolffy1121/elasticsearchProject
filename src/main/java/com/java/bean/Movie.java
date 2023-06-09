@@ -1,4 +1,4 @@
-package com.wolffy.es.bean;
+package com.java.bean;
 
 public class Movie {
     private String id;
